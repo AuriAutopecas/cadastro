@@ -32,37 +32,43 @@
             box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
         }
 
-        /* Contêiner para a logo e o título */
+        /* Contêiner para todo o cabeçalho (logo, título e subtítulo) */
         .header-content {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            /* margin-bottom: 5px; REMOVIDO: A margem agora será controlada pelo subtítulo */
-            text-align: center;
+            flex-direction: column; /* Empilha os itens verticalmente */
+            align-items: center; /* Centraliza os itens horizontalmente */
+            margin-bottom: 20px; /* Espaçamento abaixo de todo o cabeçalho */
         }
 
         .header-content img {
-            margin-right: 15px;
+            margin-bottom: 15px; /* Espaçamento entre a logo e o título */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+        }
+
+        /* Novo estilo para o grupo de título e subtítulo */
+        .text-header-group {
+            text-align: center; /* Centraliza o texto dentro do grupo */
         }
 
         h1 {
             color: #222;
-            margin: 0;
+            margin: 0; /* Remove margens padrão do h1 */
             font-weight: 600;
             font-size: 2.25rem;
             letter-spacing: 0.03em;
-            flex-shrink: 0;
+            line-height: 1.2;
         }
 
-        /* NOVO ESTILO PARA A FRASE ABAIXO DO TÍTULO */
+        /* Estilo para a frase abaixo do título */
         .subtitle-phrase {
-            text-align: center;
+            text-align: center; /* Centraliza a frase */
             font-size: 1rem;
             color: #666;
-            margin-top: 5px; /* Reduzida para aproximar do título */
-            margin-bottom: 40px; /* Mantém o espaçamento com o formulário */
+            margin-top: 5px; /* Espaçamento entre o título e o subtítulo */
+            margin-bottom: 0; /* Remove margem inferior padrão */
+            line-height: 1.4;
         }
 
         .form-group {
@@ -281,13 +287,15 @@
                 margin: 20px auto;
             }
             .header-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+                /* Já está configurado para coluna e centralizado por padrão */
+                gap: 10px; /* Reduz o espaçamento entre logo e texto em mobile */
+                margin-bottom: 20px;
             }
             .header-content img {
-                margin-right: 0;
-                margin-bottom: 10px;
+                margin-bottom: 10px; /* Ajuste o espaçamento para mobile */
+            }
+            .text-header-group {
+                text-align: center; /* Centraliza o texto em telas menores */
             }
             h1 {
                 font-size: 1.8rem;
@@ -295,8 +303,9 @@
             }
             .subtitle-phrase {
                 font-size: 0.9rem;
-                margin-top: 5px; /* Ajuste para telas pequenas também */
-                margin-bottom: 30px;
+                margin-top: 5px;
+                margin-bottom: 0;
+                text-align: center; /* Centraliza a frase em telas menores */
             }
             .row {
                 flex-direction: column;
@@ -337,9 +346,11 @@
 <div class="container" role="main" aria-labelledby="pageTitle">
     <div class="header-content">
         <img src="logo.png" alt="Logo ADpaz" width="75" height="75">
-        <h2 id="pageTitle">ADpaz - Cidade Praia</h2>
+        <div class="text-header-group">
+            <h1 id="pageTitle">ADpaz - Cidade Praia</h1>
+            <p class="subtitle-phrase">Cadastro de Membros da Congregação</p>
+        </div>
     </div>
-    <p class="subtitle-phrase">Cadastro de Membros da congregação.</p>
 
     <form id="memberForm" novalidate>
         <div class="row">
