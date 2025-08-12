@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cadastro de Membros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <style>
         /* Fonte moderna e neutra */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -12,74 +14,76 @@
             font-family: 'Inter', Arial, sans-serif;
             background: #f9fafb;
             margin: 0;
-            padding: 20px;
             color: #333;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             line-height: 1.6;
         }
 
-        .container {
+        /* O container principal agora usa classes Bootstrap para padding e margem */
+        .custom-container {
             max-width: 720px;
-            margin: 40px auto;
             background: white;
-            padding: 35px 40px;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
             transition: box-shadow 0.3s ease;
         }
-        .container:hover {
+        .custom-container:hover {
             box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
         }
 
         /* Contêiner para todo o cabeçalho (logo, título e subtítulo) */
+        /* Usamos flex-column e align-items-center para centralizar via Bootstrap */
         .header-content {
-            display: flex;
-            flex-direction: column; /* Empilha os itens verticalmente */
-            align-items: center; /* Centraliza os itens horizontalmente */
-            margin-bottom: 20px; /* Espaçamento abaixo de todo o cabeçalho */
+            /* Removido display: flex; flex-direction: column; align-items: center; pois será feito com classes Bootstrap */
+            margin-bottom: 1.5rem; /* Bootstrap's mb-3 equivale a 1rem, mb-4 a 1.5rem */
+            text-align: center; /* Centraliza o conteúdo dentro dele caso não seja flex */
         }
 
         .header-content img {
-            margin-bottom: 15px; /* Espaçamento entre a logo e o título */
+            margin-bottom: 0.75rem; /* Espaçamento entre a logo e o título (mb-3) */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             flex-shrink: 0;
+            /* Usaremos d-block e mx-auto para centralizar a imagem em telas pequenas */
         }
 
-        /* Novo estilo para o grupo de título e subtítulo */
-        .text-header-group {
-            text-align: center; /* Centraliza o texto dentro do grupo */
-        }
-
+        /* Não precisamos mais de .text-header-group, h1 e p serão centralizados pelo container pai */
         h1 {
             color: #222;
-            margin: 0; /* Remove margens padrão do h1 */
+            margin-top: 0; /* Remove margens padrão que o Bootstrap não zera completamente */
+            margin-bottom: 0.5rem; /* Equivalente a mb-2 no Bootstrap */
             font-weight: 600;
             font-size: 2.25rem;
             letter-spacing: 0.03em;
             line-height: 1.2;
         }
+        /* Em telas menores, o h1 do Bootstrap é menor, podemos manter o nosso se quisermos */
+        @media (max-width: 575.98px) { /* Extra small devices (portrait phones, less than 576px) */
+            h1 {
+                font-size: 1.8rem; /* Ajuste para mobile se preferir */
+            }
+        }
+
 
         /* Estilo para a frase abaixo do título */
         .subtitle-phrase {
-            text-align: center; /* Centraliza a frase */
             font-size: 1rem;
             color: #666;
-            margin-top: 5px; /* Espaçamento entre o título e o subtítulo */
-            margin-bottom: 0; /* Remove margem inferior padrão */
+            margin-top: 0; /* Bootstrap's mt-0 */
+            margin-bottom: 0; /* Bootstrap's mb-0 */
             line-height: 1.4;
         }
 
         .form-group {
             position: relative;
-            margin-bottom: 24px;
+            margin-bottom: 1.5rem; /* Bootstrap's mb-3 */
         }
 
         label {
             font-weight: 600;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 0.375rem; /* Equivalente a mb-1 ou mb-2 */
             color: #555;
             font-size: 0.95rem;
         }
@@ -92,10 +96,10 @@
         textarea,
         input[type="file"] {
             width: 100%;
-            padding: 12px 16px;
+            padding: 0.75rem 1rem; /* p-3 py-2 px-3 */
             font-size: 1rem;
             border: 1.5px solid #ccd0d5;
-            border-radius: 8px;
+            border-radius: 0.5rem; /* rounded-3 */
             background: #fafafa;
             color: #222;
             transition: border-color 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
@@ -104,10 +108,21 @@
             filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.1));
         }
         input[type="file"] {
-            padding: 10px 0;
+            padding: 0.625rem 0; /* Ajuste para file input */
             background: transparent;
             filter: none;
         }
+        /* Adicionar classes form-control do Bootstrap para melhor consistência */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            /* Adicione a classe form-control diretamente no HTML para maior compatibilidade com validação Bootstrap */
+            /* ou use um seletor mais específico aqui se precisar sobrescrever */
+        }
+
 
         input[type="text"]:focus,
         input[type="email"]:focus,
@@ -140,21 +155,21 @@
             opacity: 0.3;
         }
 
-        button {
+        .btn-submit { /* Classe customizada para o botão */
             width: 100%;
             background-color: #4caf50;
             border: none;
-            padding: 14px 0;
+            padding: 0.875rem 0; /* Ajuste do padding */
             font-size: 1.2rem;
             font-weight: 600;
             color: white;
-            border-radius: 10px;
+            border-radius: 0.625rem; /* rounded-3 ou rounded-pill */
             cursor: pointer;
             box-shadow: 0 6px 12px rgb(76 175 80 / 0.4);
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
             user-select: none;
         }
-        button:hover {
+        .btn-submit:hover {
             background-color: #388e3c;
             box-shadow: 0 8px 18px rgb(56 142 60 / 0.6);
         }
@@ -266,450 +281,403 @@
         }
         /* --- FIM DOS ESTILOS MELHORADOS --- */
 
-
-        /* Flex para row */
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        /* Seletor específico para o form-group col-50 para ocultar/exibir, mantendo display: none */
+        #outroCargoGroup {
+            display: none;
         }
-        .col-30 { flex: 0 0 31%; min-width: 140px;}
-        .col-50 { flex: 0 0 48%; min-width: 180px;}
-        .col-65 { flex: 0 0 66%; min-width: 250px;}
 
-        /* Responsivo */
+        /* Media queries do Bootstrap já cuidam da responsividade de colunas.
+           As suas media queries específicas agora devem focar apenas em ajustes finos. */
+        /*
         @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 20px 25px;
-                margin: 20px auto;
-            }
-            .header-content {
-                /* Já está configurado para coluna e centralizado por padrão */
-                gap: 10px; /* Reduz o espaçamento entre logo e texto em mobile */
-                margin-bottom: 20px;
-            }
-            .header-content img {
-                margin-bottom: 10px; /* Ajuste o espaçamento para mobile */
-            }
-            .text-header-group {
-                text-align: center; /* Centraliza o texto em telas menores */
-            }
-            h1 {
-                font-size: 1.8rem;
-                margin-bottom: 5px;
-            }
-            .subtitle-phrase {
-                font-size: 0.9rem;
-                margin-top: 5px;
-                margin-bottom: 0;
-                text-align: center; /* Centraliza a frase em telas menores */
-            }
-            .row {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .col-30, .col-50, .col-65 {
-                flex: 1 1 100%;
-            }
-            input[type="text"],
-            input[type="email"],
-            input[type="tel"],
-            input[type="date"],
-            select,
-            textarea,
-            input[type="file"],
-            button {
-                padding: 10px 14px;
-                font-size: 0.95rem;
-            }
-            .popup {
-                padding: 25px 30px;
-            }
-            .popup h2 {
-                font-size: 1.5rem;
-            }
-            .popup p {
-                font-size: 1rem;
-            }
-            .popup button.close-btn {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
+            // A maioria desses ajustes será gerenciada pelo Bootstrap.
+            // Mantenha apenas o que for realmente necessário.
         }
+        */
     </style>
 </head>
 <body>
+    <div class="container my-4"> <div class="custom-container p-4 p-md-5"> <div class="header-content d-flex flex-column align-items-center mb-4">
+                <img src="logo.png" alt="Logo ADpaz" width="75" height="75" class="d-block mb-3">
+                <div class="text-center"> <h1 id="pageTitle">ADpaz - Cidade Praia</h1>
+                    <p class="subtitle-phrase">Cadastro de Membros da Congregação</p>
+                </div>
+            </div>
 
-<div class="container" role="main" aria-labelledby="pageTitle">
-    <div class="header-content">
-        <img src="logo.png" alt="Logo ADpaz" width="75" height="75">
-        <div class="text-header-group">
-            <h1 id="pageTitle">ADpaz - Cidade Praia</h1>
-            <p class="subtitle-phrase">Cadastro de Membros da Congregação</p>
+            <form id="memberForm" novalidate>
+                <div class="row g-3"> <div class="col-md-8"> <div class="form-group">
+                            <label for="nome" class="form-label">Nome Completo:</label>
+                            <input type="text" id="nome" name="nome" placeholder="Ex: JOÃO DA SILVA" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4"> <div class="form-group">
+                            <label for="cpf" class="form-label">CPF:</label>
+                            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6"> <div class="form-group">
+                            <label for="nascimento" class="form-label">Data de Nascimento:</label>
+                            <input type="date" id="nascimento" name="nascimento" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6"> <div class="form-group">
+                            <label for="telefone" class="form-label">Telefone:</label>
+                            <input type="tel" id="telefone" name="telefone" placeholder="(00) 91234-5678" maxlength="15" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco" class="form-label">Endereço:</label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Rua Exemplo, 123" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">E-mail:</label>
+                    <input type="email" id="email" name="email" placeholder="exemplo@email.com" class="form-control" required>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="estadoCivil" class="form-label">Estado Civil:</label>
+                            <select id="estadoCivil" name="estadocivil" class="form-select" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Solteiro(a)">Solteiro(a)</option>
+                                <option value="Casado(a)">Casado(a)</option>
+                                <option value="Divorciado(a)">Divorciado(a)</option>
+                                <option value="Viúvo(a)">Viúvo(a)</option>
+                                <option value="Uniao Estavel">União Estável</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="dataCasamento" class="form-label">Data de Casamento:</label>
+                            <input type="date" id="dataCasamento" name="datacasamento" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="funcao" class="form-label">Função Eclesiástica:</label>
+                            <select id="funcao" name="funcao" class="form-select" required>
+                                <option value="" disabled selected>Selecione uma Função</option>
+                                <option value="Pastor(a)">Pastor(a)</option>
+                                <option value="Presbítero">Presbítero</option>
+                                <option value="Diácono/Diaconisa">Diácono/Diaconisa</option>
+                                <option value="Membro">Membro</option>
+                                <option value="Cooperador(a)">Cooperador(a)</option>
+                                <option value="Congregado(a)">Congregado(a)</option>
+                                <option value="Novo(a) Decidido(a)">Novo(a) Decidido(a)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cargo" class="form-label">Cargo/Ministério:</label>
+                            <select id="cargo" name="cargo" class="form-select">
+                                <option value="" disabled selected>Selecione um Cargo/Ministério</option>
+                                <option value="Pastor Dirigente">Pastor Dirigente</option>
+                                <option value="Prof Escola Bíblica">Prof Escola Bíblica</option>
+                                <option value="Secretário(a)">Secretário(a)</option>
+                                <option value="Lider Louvor">Lider Louvor</option>
+                                <option value="Músico">Músico</option>
+                                <option value="Assistente de Recepção">Recepcionista</option>
+                                <option value="Assistente de Mídia">Assistente de Mídia</option>
+                                <option value="Assistente de Manuntenção">Assistente de Manuntenção</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12" id="outroCargoGroup"> <div class="form-group">
+                        <label for="outroCargo" class="form-label">Qual?</label>
+                        <input type="text" id="outroCargo" name="outroCargo" placeholder="Descreva o cargo/ministério" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="historico" class="form-label">Histórico de Atividade:</label>
+                    <textarea id="historico" name="historico" rows="3" placeholder="Fale sobre suas atividades na igreja, e o ano em que você aceitou Jesus" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="outro" class="form-label">Situação na Igreja:</label>
+                    <select id="outro" name="outro" class="form-select">
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="Em Atividade">Em Atividade</option>
+                        <option value="Ausente">Ausente</option>
+                        <option value="Afastado">Afastado</option>
+                        <option value="Inconstante">Inconstante</option>
+                        <option value="Mudou-se">Mudou-se</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="foto" class="form-label">Foto do Membro:</label>
+                    <input type="file" id="foto" name="foto" accept="image/*" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn-submit" aria-live="polite" aria-label="Enviar cadastro">Cadastrar Membro</button>
+            </form>
         </div>
     </div>
 
-    <form id="memberForm" novalidate>
-        <div class="row">
-            <div class="form-group col-65">
-                <label for="nome">Nome Completo:</label>
-                <input type="text" id="nome" name="nome" placeholder="Ex: JOÃO DA SILVA" required>
-            </div>
-            <div class="form-group col-30">
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14">
-            </div>
-        </div>
+    <div id="spinner" class="spinner" role="status" aria-live="assertive" aria-label="Carregando"></div>
 
-        <div class="row">
-            <div class="form-group col-50">
-                <label for="nascimento">Data de Nascimento:</label>
-                <input type="date" id="nascimento" name="nascimento" required>
-            </div>
-            <div class="form-group col-50">
-                <label for="telefone">Telefone:</label>
-                <input type="tel" id="telefone" name="telefone" placeholder="(00) 91234-5678" maxlength="15" required>
-            </div>
-        </div>
+    <div id="modalOverlay" class="modal-overlay"></div>
 
-        <div class="form-group">
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" placeholder="Rua Exemplo, 123" required>
-        </div>
+    <div id="successPopup" class="popup success" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">
+        <h2>Sucesso!</h2>
+        <p id="successMessage">Cadastro feito com sucesso!</p>
+        <button class="close-btn" onclick="closePopup('successPopup')" aria-label="Fechar mensagem">Fechar</button>
+    </div>
 
-        <div class="form-group">
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
-        </div>
+    <div id="errorPopup" class="popup error" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">
+        <h2>Erro!</h2>
+        <p id="errorMessage">Erro ao enviar os dados. Por favor, tente novamente.</p>
+        <button class="close-btn" onclick="closePopup('errorPopup')" aria-label="Fechar mensagem">Fechar</button>
+    </div>
 
-        <div class="row">
-            <div class="form-group col-50">
-                <label for="estadoCivil">Estado Civil:</label>
-                <select id="estadoCivil" name="estadocivil" required>
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="Solteiro(a)">Solteiro(a)</option>
-                    <option value="Casado(a)">Casado(a)</option>
-                    <option value="Divorciado(a)">Divorciado(a)</option>
-                    <option value="Viúvo(a)">Viúvo(a)</option>
-                    <option value="Uniao Estavel">União Estável</option>
-                </select>
-            </div>
-            <div class="form-group col-50">
-                <label for="dataCasamento">Data de Casamento:</label>
-                <input type="date" id="dataCasamento" name="datacasamento">
-            </div>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        // URL do seu script do Google Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxrut2HufDs4rTSryefyT2bmKy4LLL6s0RNqehnQPKUbgVOBxHbx1_Hq3Cq8pLpXH7C/exec';
 
-        <div class="row">
-            <div class="form-group col-50">
-                <label for="funcao">Função Eclesiástica:</label>
-                <select id="funcao" name="funcao" required>
-                    <option value="" disabled selected>Selecione uma Função</option>
-                    <option value="Pastor(a)">Pastor(a)</option>
-                    <option value="Presbítero">Presbítero</option>
-                    <option value="Diácono/Diaconisa">Diácono/Diaconisa</option>
-                    <option value="Membro">Membro</option>
-                    <option value="Cooperador(a)">Cooperador(a)</option>
-                    <option value="Congregado(a)">Congregado(a)</option>
-                    <option value="Novo(a) Decidido(a)">Novo(a) Decidido(a)</option>
-                </select>
-            </div>
+        // Referências aos elementos do DOM
+        const memberForm = document.getElementById('memberForm');
+        const spinner = document.getElementById('spinner');
+        const successPopup = document.getElementById('successPopup');
+        const errorPopup = document.getElementById('errorPopup');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const fotoInput = document.getElementById('foto');
+        const modalOverlay = document.getElementById('modalOverlay');
 
-            <div class="form-group col-50">
-                <label for="cargo">Cargo/Ministério:</label>
-                <select id="cargo" name="cargo">
-                    <option value="" disabled selected>Selecione um Cargo/Ministério</option>
-                    <option value="Pastor Dirigente">Pastor Dirigente</option>
-                    <option value="Prof Escola Bíblica">Prof Escola Bíblica</option>
-                    <option value="Secretário(a)">Secretário(a)</option>
-                    <option value="Lider Louvor">Lider Louvor</option>
-                    <option value="Músico">Músico</option>
-                    <option value="Assistente de Recepção">Recepcionista</option>
-                    <option value="Assistente de Mídia">Assistente de Mídia</option>
-                    <option value="Assistente de Manuntenção">Assistente de Manuntenção</option>
-                    <option value="Outro">Outro</option>
-                </select>
-            </div>
-        </div>
+        // Limite de tamanho do arquivo de foto em KB
+        const MAX_FILE_SIZE_KB = 200;
 
-        <div class="form-group col-50" id="outroCargoGroup" style="display: none;">
-            <label for="outroCargo">Qual?</label>
-            <input type="text" id="outroCargo" name="outroCargo" placeholder="Descreva o cargo/ministério">
-        </div>
+        // Função para validar CPF simples (formato e dígitos)
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g,'');
+            if (cpf === "") return true;
 
-        <div class="form-group">
-            <label for="historico">Histórico de Atividade:</label>
-            <textarea id="historico" name="historico" rows="3" placeholder="Fale sobre suas atividades na igreja, e o ano em que você aceitou Jesus"></textarea>
-        </div>
+            if(cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
-        <div class="form-group">
-            <label for="outro">Situação na Igreja:</label>
-            <select id="outro" name="outro">
-                <option value="" disabled selected>Selecione uma opção</option>
-                <option value="Em Atividade">Em Atividade</option>
-                <option value="Ausente">Ausente</option>
-                <option value="Afastado">Afastado</option>
-                <option value="Inconstante">Inconstante</option>
-                <option value="Mudou-se">Mudou-se</option>
-            </select>
-        </div>
+            let soma = 0, resto;
+            for(let i=1; i<=9; i++) soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+            resto = (soma * 10) % 11;
+            if(resto === 10 || resto === 11) resto = 0;
+            if(resto !== parseInt(cpf.substring(9, 10))) return false;
 
-        <div class="form-group">
-            <label for="foto">Foto do Membro:</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required>
-        </div>
+            soma = 0;
+            for(let i=1; i<=10; i++) soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
+            resto = (soma * 10) % 11;
+            if(resto === 10 || resto === 11) resto = 0;
+            if(resto !== parseInt(cpf.substring(10, 11))) return false;
 
-        <button type="submit" aria-live="polite" aria-label="Enviar cadastro">Cadastrar Membro</button>
-    </form>
-</div>
-
-<div id="spinner" class="spinner" role="status" aria-live="assertive" aria-label="Carregando"></div>
-
-<div id="modalOverlay" class="modal-overlay"></div>
-
-<div id="successPopup" class="popup success" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">
-    <h2>Sucesso!</h2>
-    <p id="successMessage">Cadastro feito com sucesso!</p>
-    <button class="close-btn" onclick="closePopup('successPopup')" aria-label="Fechar mensagem">Fechar</button>
-</div>
-
-<div id="errorPopup" class="popup error" role="alert" aria-live="assertive" aria-atomic="true" tabindex="-1">
-    <h2>Erro!</h2>
-    <p id="errorMessage">Erro ao enviar os dados. Por favor, tente novamente.</p>
-    <button class="close-btn" onclick="closePopup('errorPopup')" aria-label="Fechar mensagem">Fechar</button>
-</div>
-
-<script>
-    // URL do seu script do Google Apps Script
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxrut2HufDs4rTSryefyT2bmKy4LLL6s0RNqehnQPKUbgVOBxHbx1_Hq3Cq8pLpXH7C/exec';
-
-    // Referências aos elementos do DOM
-    const memberForm = document.getElementById('memberForm');
-    const spinner = document.getElementById('spinner');
-    const successPopup = document.getElementById('successPopup');
-    const errorPopup = document.getElementById('errorPopup');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    const fotoInput = document.getElementById('foto');
-    const modalOverlay = document.getElementById('modalOverlay');
-
-    // Limite de tamanho do arquivo de foto em KB
-    const MAX_FILE_SIZE_KB = 200;
-
-    // Função para validar CPF simples (formato e dígitos)
-    function validarCPF(cpf) {
-        cpf = cpf.replace(/[^\d]+/g,'');
-        if (cpf === "") return true;
-
-        if(cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
-
-        let soma = 0, resto;
-        for(let i=1; i<=9; i++) soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
-        resto = (soma * 10) % 11;
-        if(resto === 10 || resto === 11) resto = 0;
-        if(resto !== parseInt(cpf.substring(9, 10))) return false;
-
-        soma = 0;
-        for(let i=1; i<=10; i++) soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
-        resto = (soma * 10) % 11;
-        if(resto === 10 || resto === 11) resto = 0;
-        if(resto !== parseInt(cpf.substring(10, 11))) return false;
-
-        return true;
-    }
-
-    // Função para validar telefone brasileiro simples
-    function validarTelefone(tel) {
-        const regex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
-        return regex.test(tel);
-    }
-
-    // Função para formatar CPF enquanto digita (ex: 123.456.789-00)
-    function formatarCPF(cpf) {
-        cpf = cpf.replace(/\D/g, '');
-        cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
-        cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
-        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-        return cpf;
-    }
-
-    // Função para formatar telefone enquanto digita (ex: (12) 91234-5678)
-    function formatarTelefone(tel) {
-        tel = tel.replace(/\D/g, '');
-        if(tel.length > 11) tel = tel.slice(0,11);
-        tel = tel.replace(/^(\d{2})(\d)/g, '($1) $2');
-        tel = tel.replace(/(\d{4,5})(\d{4})$/, '$1-$2');
-        return tel;
-    }
-
-    // Função auxiliar para converter arquivo em base64
-    function toBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
-
-    // Função para exibir popup com mensagem e foco para acessibilidade
-    function showPopup(id, titleText, messageText) {
-        const popup = document.getElementById(id);
-        const titleElement = popup.querySelector('h2');
-        const messageElement = popup.querySelector('p');
-
-        if (!popup || !titleElement || !messageElement) return;
-
-        titleElement.textContent = titleText;
-        messageElement.textContent = messageText;
-
-        modalOverlay.classList.add('show');
-        popup.classList.add('show');
-        popup.focus();
-    }
-
-    // Função para fechar o popup
-    function closePopup(id) {
-        const popup = document.getElementById(id);
-        if (popup) {
-            popup.classList.remove('show');
-            modalOverlay.classList.remove('show');
-        }
-    }
-
-    // --- Lógica para o formulário e eventos ---
-
-    memberForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        closePopup('successPopup');
-        closePopup('errorPopup');
-
-        const cpfInput = memberForm.cpf;
-        const telInput = memberForm.telefone;
-
-        if (cpfInput.value.trim() !== "" && !validarCPF(cpfInput.value)) {
-            showPopup('errorPopup', 'Erro!', 'CPF inválido. Por favor, verifique e tente novamente.');
-            cpfInput.focus();
-            return;
+            return true;
         }
 
-        if (!validarTelefone(telInput.value)) {
-            showPopup('errorPopup', 'Erro!', 'Telefone inválido. Use formato (00) 91234-5678.');
-            telInput.focus();
-            return;
+        // Função para validar telefone brasileiro simples
+        function validarTelefone(tel) {
+            const regex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
+            return regex.test(tel);
         }
 
-        const file = fotoInput.files[0];
-        if (!file) {
-            showPopup('errorPopup', 'Erro!', 'Por favor, selecione uma foto para o membro.');
-            fotoInput.focus();
-            return;
+        // Função para formatar CPF enquanto digita (ex: 123.456.789-00)
+        function formatarCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+            cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            return cpf;
         }
 
-        const fileSizeKB = file.size / 1024;
-        if (fileSizeKB > MAX_FILE_SIZE_KB) {
-            showPopup('errorPopup', 'Erro!', `A foto excede o limite de ${MAX_FILE_SIZE_KB} KB. Tamanho atual: ${fileSizeKB.toFixed(2)} KB.`);
-            fotoInput.focus();
-            return;
+        // Função para formatar telefone enquanto digita (ex: (12) 91234-5678)
+        function formatarTelefone(tel) {
+            tel = tel.replace(/\D/g, '');
+            if(tel.length > 11) tel = tel.slice(0,11);
+            tel = tel.replace(/^(\d{2})(\d)/g, '($1) $2');
+            tel = tel.replace(/(\d{4,5})(\d{4})$/, '$1-$2');
+            return tel;
         }
 
-        spinner.style.display = 'block';
-        modalOverlay.classList.add('show');
-
-        const formData = new FormData(memberForm);
-
-        try {
-            // Conversão da foto para base64
-            const base64 = await toBase64(file);
-            formData.set("foto", base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ""));
-
-            const response = await fetch(scriptURL, {
-                method: 'POST',
-                body: formData
+        // Função auxiliar para converter arquivo em base64
+        function toBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
             });
+        }
 
-            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+        // Função para exibir popup com mensagem e foco para acessibilidade
+        function showPopup(id, titleText, messageText) {
+            const popup = document.getElementById(id);
+            const titleElement = popup.querySelector('h2');
+            const messageElement = popup.querySelector('p');
 
-            const result = await response.json();
+            if (!popup || !titleElement || !messageElement) return;
 
-            spinner.style.display = 'none';
-            modalOverlay.classList.remove('show');
+            titleElement.textContent = titleText;
+            messageElement.textContent = messageText;
 
-            if (result.success) {
-                showPopup('successPopup', 'Sucesso!', `Cadastro feito com sucesso! ID: ${result.id}`);
-                memberForm.reset();
-            } else {
-                showPopup('errorPopup', 'Erro!', `Erro: ${result.error || 'Erro desconhecido'}`);
+            modalOverlay.classList.add('show');
+            popup.classList.add('show');
+            popup.focus();
+        }
+
+        // Função para fechar o popup
+        function closePopup(id) {
+            const popup = document.getElementById(id);
+            if (popup) {
+                popup.classList.remove('show');
+                modalOverlay.classList.remove('show');
             }
-        } catch (error) {
-            spinner.style.display = 'none';
-            modalOverlay.classList.remove('show');
-            showPopup('errorPopup', 'Erro!', `Erro ao enviar: ${error.message}`);
         }
-    });
 
-    // --- Lógica para máscaras e eventos do dropdown "Outro" ---
+        // --- Lógica para o formulário e eventos ---
 
-    const cpfInput = document.getElementById('cpf');
-    const telInput = document.getElementById('telefone');
-    const estadoCivilSelect = document.getElementById('estadoCivil');
-    const dataCasamentoGroup = document.querySelector('input[name="datacasamento"]').parentElement;
-    const dataCasamentoInput = document.getElementById('dataCasamento');
-    const cargoSelect = document.getElementById('cargo');
-    const outroCargoGroup = document.getElementById('outroCargoGroup');
-    const outroCargoInput = document.getElementById('outroCargo');
+        memberForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    // Event Listeners para máscaras e conversão para maiúsculas
-    cpfInput.addEventListener('input', () => {
-        cpfInput.value = formatarCPF(cpfInput.value);
-    });
+            closePopup('successPopup');
+            closePopup('errorPopup');
 
-    telInput.addEventListener('input', () => {
-        telInput.value = formatarTelefone(telInput.value);
-    });
+            const cpfInput = memberForm.cpf;
+            const telInput = memberForm.telefone;
 
-    ['nome', 'endereco', 'historico'].forEach(fieldName => {
-        const el = document.querySelector(`[name="${fieldName}"]`);
-        if(el) {
-            el.addEventListener('input', () => {
-                el.value = el.value.toUpperCase();
-            });
+            if (cpfInput.value.trim() !== "" && !validarCPF(cpfInput.value)) {
+                showPopup('errorPopup', 'Erro!', 'CPF inválido. Por favor, verifique e tente novamente.');
+                cpfInput.focus();
+                return;
+            }
+
+            if (!validarTelefone(telInput.value)) {
+                showPopup('errorPopup', 'Erro!', 'Telefone inválido. Use formato (00) 91234-5678.');
+                telInput.focus();
+                return;
+            }
+
+            const file = fotoInput.files[0];
+            if (!file) {
+                showPopup('errorPopup', 'Erro!', 'Por favor, selecione uma foto para o membro.');
+                fotoInput.focus();
+                return;
+            }
+
+            const fileSizeKB = file.size / 1024;
+            if (fileSizeKB > MAX_FILE_SIZE_KB) {
+                showPopup('errorPopup', 'Erro!', `A foto excede o limite de ${MAX_FILE_SIZE_KB} KB. Tamanho atual: ${fileSizeKB.toFixed(2)} KB.`);
+                fotoInput.focus();
+                return;
+            }
+
+            spinner.style.display = 'block';
+            modalOverlay.classList.add('show');
+
+            const formData = new FormData(memberForm);
+
+            try {
+                // Conversão da foto para base64
+                const base64 = await toBase64(file);
+                formData.set("foto", base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ""));
+
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+
+                const result = await response.json();
+
+                spinner.style.display = 'none';
+                modalOverlay.classList.remove('show');
+
+                if (result.success) {
+                    showPopup('successPopup', 'Sucesso!', `Cadastro feito com sucesso! ID: ${result.id}`);
+                    memberForm.reset();
+                } else {
+                    showPopup('errorPopup', 'Erro!', `Erro: ${result.error || 'Erro desconhecido'}`);
+                }
+            } catch (error) {
+                spinner.style.display = 'none';
+                modalOverlay.classList.remove('show');
+                showPopup('errorPopup', 'Erro!', `Erro ao enviar: ${error.message}`);
+            }
+        });
+
+        // --- Lógica para máscaras e eventos do dropdown "Outro" ---
+
+        const cpfInput = document.getElementById('cpf');
+        const telInput = document.getElementById('telefone');
+        const estadoCivilSelect = document.getElementById('estadoCivil');
+        const dataCasamentoGroup = document.querySelector('input[name="datacasamento"]').closest('.form-group'); // closest para pegar o div.form-group
+        const dataCasamentoInput = document.getElementById('dataCasamento');
+        const cargoSelect = document.getElementById('cargo');
+        const outroCargoGroup = document.getElementById('outroCargoGroup');
+        const outroCargoInput = document.getElementById('outroCargo');
+
+        // Event Listeners para máscaras e conversão para maiúsculas
+        cpfInput.addEventListener('input', () => {
+            cpfInput.value = formatarCPF(cpfInput.value);
+        });
+
+        telInput.addEventListener('input', () => {
+            telInput.value = formatarTelefone(telInput.value);
+        });
+
+        ['nome', 'endereco', 'historico', 'outroCargo'].forEach(fieldName => { // Adicionado outroCargo para maiúsculas
+            const el = document.querySelector(`[name="${fieldName}"]`);
+            if(el) {
+                el.addEventListener('input', () => {
+                    el.value = el.value.toUpperCase();
+                });
+            }
+        });
+
+        // Lógica para mostrar/esconder Data de Casamento
+        function toggleDataCasamento() {
+            const selectedValue = estadoCivilSelect.value;
+            if (selectedValue === 'Casado(a)' || selectedValue === 'Uniao Estavel') {
+                dataCasamentoGroup.style.display = 'block';
+                dataCasamentoInput.setAttribute('required', 'required'); // Torna obrigatório quando visível
+            } else {
+                dataCasamentoGroup.style.display = 'none';
+                dataCasamentoInput.removeAttribute('required');
+                dataCasamentoInput.value = '';
+            }
         }
-    });
+        estadoCivilSelect.addEventListener('change', toggleDataCasamento);
+        // Garante o estado inicial ao carregar a página
+        toggleDataCasamento();
 
-    // Lógica para mostrar/esconder Data de Casamento
-    function toggleDataCasamento() {
-        const selectedValue = estadoCivilSelect.value;
-        if (selectedValue === 'Casado(a)' || selectedValue === 'Uniao Estavel') {
-            dataCasamentoGroup.style.display = 'block';
-        } else {
-            dataCasamentoGroup.style.display = 'none';
-            dataCasamentoInput.value = '';
+        // Lógica para mostrar/esconder o campo de "Outro" cargo (código unificado)
+        function toggleOutroCargoInput() {
+            if (cargoSelect.value === 'Outro') {
+                outroCargoGroup.style.display = 'block';
+                outroCargoInput.setAttribute('required', 'required');
+                outroCargoInput.focus();
+            } else {
+                outroCargoGroup.style.display = 'none';
+                outroCargoInput.removeAttribute('required');
+                outroCargoInput.value = '';
+            }
         }
-    }
-    estadoCivilSelect.addEventListener('change', toggleDataCasamento);
-    // Garante o estado inicial ao carregar a página
-    toggleDataCasamento();
-
-    // Lógica para mostrar/esconder o campo de "Outro" cargo (código unificado)
-    function toggleOutroCargoInput() {
-        if (cargoSelect.value === 'Outro') {
-            outroCargoGroup.style.display = 'block';
-            outroCargoInput.setAttribute('required', 'required');
-            outroCargoInput.focus();
-        } else {
-            outroCargoGroup.style.display = 'none';
-            outroCargoInput.removeAttribute('required');
-            outroCargoInput.value = '';
-        }
-    }
-    cargoSelect.addEventListener('change', toggleOutroCargoInput);
-    // Garante o estado inicial ao carregar a página
-    toggleOutroCargoInput();
-</script>
+        cargoSelect.addEventListener('change', toggleOutroCargoInput);
+        // Garante o estado inicial ao carregar a página
+        toggleOutroCargoInput();
+    </script>
 </body>
 </html>
