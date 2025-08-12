@@ -32,13 +32,37 @@
             box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
         }
 
-        h1 {
+        /* Contêiner para a logo e o título */
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-bottom: 5px; REMOVIDO: A margem agora será controlada pelo subtítulo */
             text-align: center;
+        }
+
+        .header-content img {
+            margin-right: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
             color: #222;
-            margin-bottom: 40px;
+            margin: 0;
             font-weight: 600;
             font-size: 2.25rem;
             letter-spacing: 0.03em;
+            flex-shrink: 0;
+        }
+
+        /* NOVO ESTILO PARA A FRASE ABAIXO DO TÍTULO */
+        .subtitle-phrase {
+            text-align: center;
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px; /* Reduzida para aproximar do título */
+            margin-bottom: 40px; /* Mantém o espaçamento com o formulário */
         }
 
         .form-group {
@@ -68,15 +92,15 @@
             border-radius: 8px;
             background: #fafafa;
             color: #222;
-            transition: border-color 0.3s ease, background-color 0.3s ease, filter 0.3s ease; /* Adicionado 'filter' na transição */
+            transition: border-color 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
             box-sizing: border-box;
             font-family: inherit;
-            filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.1)); /* DROP SHADOW APLICADO AQUI */
+            filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.1));
         }
         input[type="file"] {
             padding: 10px 0;
             background: transparent;
-            filter: none; /* Não aplicar drop-shadow no input de arquivo, se não for desejado */
+            filter: none;
         }
 
         input[type="text"]:focus,
@@ -89,11 +113,8 @@
             background-color: #fff;
             outline: none;
             box-shadow: 0 0 8px rgb(76 175 80 / 0.3);
-            filter: drop-shadow(2px 4px 6px rgba(76, 175, 80, 0.4)); /* Sombra mais intensa no foco, combinando com a cor do foco */
+            filter: drop-shadow(2px 4px 6px rgba(76, 175, 80, 0.4));
         }
-
-        /* REMOVIDAS AS REGRAS ESPECÍFICAS PARA #outro, #cargo e #funcao AQUI */
-
 
         textarea {
             resize: vertical;
@@ -155,14 +176,14 @@
 
         /* --- Estilos para o overlay do modal --- */
         .modal-overlay {
-            display: none; /* Escondido por padrão */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
-            z-index: 999; /* Abaixo do pop-up, acima do conteúdo */
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
         }
         .modal-overlay.show {
             display: block;
@@ -170,34 +191,34 @@
 
         /* --- Estilos para o popup: Centralizado, da Imagem --- */
         .popup {
-            display: none; /* Escondido por padrão */
+            display: none;
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Centraliza exato */
+            transform: translate(-50%, -50%);
             background: white;
-            border-radius: 12px; /* Cantos arredondados */
-            padding: 30px 40px; /* Padding generoso */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* Sombra visível */
-            z-index: 10000; /* Acima de tudo */
-            max-width: 450px; /* Largura máxima, como na imagem */
-            width: 90%; /* Responsivo */
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            max-width: 450px;
+            width: 90%;
             text-align: center;
             font-family: 'Inter', Arial, sans-serif;
         }
 
         .popup.show {
-            display: block; /* Mostra o pop-up */
+            display: block;
         }
 
-        .popup h2 { /* Título do pop-up */
+        .popup h2 {
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 15px;
             line-height: 1.2;
         }
 
-        .popup p { /* Mensagem principal */
+        .popup p {
             font-size: 1.1rem;
             line-height: 1.5;
             margin-bottom: 25px;
@@ -205,36 +226,36 @@
         }
 
         .popup.success h2 {
-            color: #28a745; /* Verde para sucesso */
+            color: #28a745;
         }
         .popup.success p {
-            color: #333; /* Texto preto para a mensagem de sucesso */
+            color: #333;
         }
 
         .popup.error h2 {
-            color: #dc3545; /* Vermelho para erro */
+            color: #dc3545;
         }
         .popup.error p {
-            color: #333; /* Texto preto para a mensagem de erro */
+            color: #333;
         }
 
         /* Botão de Fechar no pop-up */
         .popup button.close-btn {
-            background-color: #007bff; /* Azul para o botão "Fechar" */
+            background-color: #007bff;
             color: white;
             padding: 12px 30px;
             border: none;
-            border-radius: 8px; /* Cantos arredondados no botão */
+            border-radius: 8px;
             cursor: pointer;
             font-size: 1.1rem;
             font-weight: 600;
-            width: auto; /* Adapta a largura ao conteúdo */
-            display: inline-block; /* Para centralizar ou manter na linha */
+            width: auto;
+            display: inline-block;
             transition: background-color 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
         }
         .popup button.close-btn:hover {
-            background-color: #0056b3; /* Azul mais escuro no hover */
+            background-color: #0056b3;
             box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
         }
         /* --- FIM DOS ESTILOS MELHORADOS --- */
@@ -253,19 +274,33 @@
         /* Responsivo */
         @media (max-width: 600px) {
             body {
-                padding: 10px; /* Reduzir padding do body em mobile */
+                padding: 10px;
             }
             .container {
-                padding: 20px 25px; /* Ajustar padding do container em mobile */
+                padding: 20px 25px;
                 margin: 20px auto;
             }
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .header-content img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
             h1 {
-                font-size: 1.8rem; /* Título menor em mobile */
+                font-size: 1.8rem;
+                margin-bottom: 5px;
+            }
+            .subtitle-phrase {
+                font-size: 0.9rem;
+                margin-top: 5px; /* Ajuste para telas pequenas também */
                 margin-bottom: 30px;
             }
             .row {
                 flex-direction: column;
-                gap: 15px; /* Espaçamento menor entre campos */
+                gap: 15px;
             }
             .col-30, .col-50, .col-65 {
                 flex: 1 1 100%;
@@ -278,11 +313,11 @@
             textarea,
             input[type="file"],
             button {
-                padding: 10px 14px; /* Menor padding para inputs e botões */
+                padding: 10px 14px;
                 font-size: 0.95rem;
             }
             .popup {
-                padding: 25px 30px; /* Menor padding em mobile */
+                padding: 25px 30px;
             }
             .popup h2 {
                 font-size: 1.5rem;
@@ -300,16 +335,11 @@
 <body>
 
 <div class="container" role="main" aria-labelledby="pageTitle">
-<div class="container" role="main" aria-labelledby="pageTitle" style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-  <img src="logo.png" alt="logo" style="width: 70px; height: 70px;">
-  <div style="text-align: center;">
-    <h3 id="pageTitle">ADpaz - Cidade Praia</h3>
-    <p style="font-size: 18px; font-weight: normal; color: #555; margin-top: -20px;">
-   Cadastro de Membros da Congregação
-    </p>
-  </div>
-</div>
-
+    <div class="header-content">
+        <img src="logo.png" alt="Logo ADpaz" width="75" height="75">
+        <h2 id="pageTitle">ADpaz - Cidade Praia</h2>
+    </div>
+    <p class="subtitle-phrase">Cadastro de Membros da congregação.</p>
 
     <form id="memberForm" novalidate>
         <div class="row">
@@ -349,10 +379,10 @@
                 <label for="estadoCivil">Estado Civil:</label>
                 <select id="estadoCivil" name="estadocivil" required>
                     <option value="" disabled selected>Selecione</option>
-                    <option value="Solteiro">Solteiro(a)</option>
-                    <option value="Casado">Casado(a)</option>
-                    <option value="Divorciado">Divorciado(a)</option>
-                    <option value="Viuvo">Viúvo(a)</option>
+                    <option value="Solteiro(a)">Solteiro(a)</option>
+                    <option value="Casado(a)">Casado(a)</option>
+                    <option value="Divorciado(a)">Divorciado(a)</option>
+                    <option value="Viúvo(a)">Viúvo(a)</option>
                     <option value="Uniao Estavel">União Estável</option>
                 </select>
             </div>
@@ -369,8 +399,11 @@
                     <option value="" disabled selected>Selecione uma Função</option>
                     <option value="Pastor(a)">Pastor(a)</option>
                     <option value="Presbítero">Presbítero</option>
-                    <option value="Diácono">Diácono/Diaconisa</option>
+                    <option value="Diácono/Diaconisa">Diácono/Diaconisa</option>
                     <option value="Membro">Membro</option>
+                    <option value="Cooperador(a)">Cooperador(a)</option>
+                    <option value="Congregado(a)">Congregado(a)</option>
+                    <option value="Novo(a) Decidido(a)">Novo(a) Decidido(a)</option>
                 </select>
             </div>
 
@@ -380,22 +413,29 @@
                     <option value="" disabled selected>Selecione um Cargo/Ministério</option>
                     <option value="Pastor Dirigente">Pastor Dirigente</option>
                     <option value="Prof Escola Bíblica">Prof Escola Bíblica</option>
-                    <option value="Secretário">Secretário(a)</option>
-                    <option value="Lider Louvor">Lider Louvor(a)</option>
+                    <option value="Secretário(a)">Secretário(a)</option>
+                    <option value="Lider Louvor">Lider Louvor</option>
                     <option value="Músico">Músico</option>
                     <option value="Assistente de Recepção">Recepcionista</option>
+                    <option value="Assistente de Mídia">Assistente de Mídia</option>
                     <option value="Assistente de Manuntenção">Assistente de Manuntenção</option>
+                    <option value="Outro">Outro</option>
                 </select>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="historico">Histórico de Atividade:</label>
-            <textarea id="historico" name="historico" rows="3" placeholder="Descreva o histórico"></textarea>
+        <div class="form-group col-50" id="outroCargoGroup" style="display: none;">
+            <label for="outroCargo">Qual?</label>
+            <input type="text" id="outroCargo" name="outroCargo" placeholder="Descreva o cargo/ministério">
         </div>
 
         <div class="form-group">
-            <label for="outro">Outras Informações:</label>
+            <label for="historico">Histórico de Atividade:</label>
+            <textarea id="historico" name="historico" rows="3" placeholder="Fale sobre suas atividades na igreja, e o ano em que você aceitou Jesus"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="outro">Situação na Igreja:</label>
             <select id="outro" name="outro">
                 <option value="" disabled selected>Selecione uma opção</option>
                 <option value="Em Atividade">Em Atividade</option>
@@ -432,29 +472,30 @@
 </div>
 
 <script>
+    // URL do seu script do Google Apps Script
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxrut2HufDs4rTSryefyT2bmKy4LLL6s0RNqehnQPKUbgVOBxHbx1_Hq3Cq8pLpXH7C/exec';
 
+    // Referências aos elementos do DOM
     const memberForm = document.getElementById('memberForm');
     const spinner = document.getElementById('spinner');
     const successPopup = document.getElementById('successPopup');
     const errorPopup = document.getElementById('errorPopup');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
-    const fotoInput = document.getElementById('foto'); // Referência ao input de foto
-    const MAX_FILE_SIZE_KB = 500; // Limite de 500 KB
-    const modalOverlay = document.getElementById('modalOverlay'); // Referência ao overlay
+    const fotoInput = document.getElementById('foto');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    // Limite de tamanho do arquivo de foto em KB
+    const MAX_FILE_SIZE_KB = 200;
 
     // Função para validar CPF simples (formato e dígitos)
-    // Retorna true se vazio ou se preenchido e válido
     function validarCPF(cpf) {
         cpf = cpf.replace(/[^\d]+/g,'');
-        // Se o campo estiver vazio, retorna true (não é obrigatório)
-        if (cpf === "") return true; 
+        if (cpf === "") return true;
 
         if(cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
         let soma = 0, resto;
-
         for(let i=1; i<=9; i++) soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
         resto = (soma * 10) % 11;
         if(resto === 10 || resto === 11) resto = 0;
@@ -471,7 +512,6 @@
 
     // Função para validar telefone brasileiro simples
     function validarTelefone(tel) {
-        // Aceita formatos com ou sem DDD e 8 ou 9 dígitos + possíveis espaços, hífens e parênteses
         const regex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
         return regex.test(tel);
     }
@@ -494,72 +534,91 @@
         return tel;
     }
 
+    // Função auxiliar para converter arquivo em base64
+    function toBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    // Função para exibir popup com mensagem e foco para acessibilidade
+    function showPopup(id, titleText, messageText) {
+        const popup = document.getElementById(id);
+        const titleElement = popup.querySelector('h2');
+        const messageElement = popup.querySelector('p');
+
+        if (!popup || !titleElement || !messageElement) return;
+
+        titleElement.textContent = titleText;
+        messageElement.textContent = messageText;
+
+        modalOverlay.classList.add('show');
+        popup.classList.add('show');
+        popup.focus();
+    }
+
+    // Função para fechar o popup
+    function closePopup(id) {
+        const popup = document.getElementById(id);
+        if (popup) {
+            popup.classList.remove('show');
+            modalOverlay.classList.remove('show');
+        }
+    }
+
+    // --- Lógica para o formulário e eventos ---
+
     memberForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Esconde qualquer popup ativo e o overlay
         closePopup('successPopup');
         closePopup('errorPopup');
 
-        // Validação customizada CPF e Telefone (telefone ainda é obrigatório)
         const cpfInput = memberForm.cpf;
         const telInput = memberForm.telefone;
-        const cpfValido = validarCPF(cpfInput.value); // Ainda valida o formato se preenchido
-        const telValido = validarTelefone(telInput.value);
 
-        // A validação de CPF só ocorrerá se o campo não estiver vazio E não for válido
-        if (cpfInput.value.trim() !== "" && !cpfValido) {
+        if (cpfInput.value.trim() !== "" && !validarCPF(cpfInput.value)) {
             showPopup('errorPopup', 'Erro!', 'CPF inválido. Por favor, verifique e tente novamente.');
             cpfInput.focus();
             return;
         }
-        
-        // A validação de Telefone ainda é obrigatória, pois o campo tem `required`
-        if (!telValido) {
+
+        if (!validarTelefone(telInput.value)) {
             showPopup('errorPopup', 'Erro!', 'Telefone inválido. Use formato (00) 91234-5678.');
             telInput.focus();
             return;
         }
 
-        // Validação de tamanho do arquivo de foto (continua obrigatória)
-        const file = fotoInput.files[0]; 
-        if (file) { 
-            const fileSizeKB = file.size / 1024; 
-            if (fileSizeKB > MAX_FILE_SIZE_KB) {
-                showPopup('errorPopup', 'Erro!', `A foto excede o limite de ${MAX_FILE_SIZE_KB} KB. Tamanho atual: ${fileSizeKB.toFixed(2)} KB.`);
-                fotoInput.focus();
-                return; 
-            }
-        } else {
-            // Se o campo de foto é obrigatório e não há arquivo, exibe erro.
+        const file = fotoInput.files[0];
+        if (!file) {
             showPopup('errorPopup', 'Erro!', 'Por favor, selecione uma foto para o membro.');
             fotoInput.focus();
             return;
         }
 
+        const fileSizeKB = file.size / 1024;
+        if (fileSizeKB > MAX_FILE_SIZE_KB) {
+            showPopup('errorPopup', 'Erro!', `A foto excede o limite de ${MAX_FILE_SIZE_KB} KB. Tamanho atual: ${fileSizeKB.toFixed(2)} KB.`);
+            fotoInput.focus();
+            return;
+        }
+
         spinner.style.display = 'block';
-        modalOverlay.classList.add('show'); 
+        modalOverlay.classList.add('show');
 
         const formData = new FormData(memberForm);
-        const data = new URLSearchParams();
 
         try {
-            // Conversão para base64 do arquivo de foto
-            if (file && file.type.startsWith("image/")) {
-                const base64 = await toBase64(file);
-                formData.set("foto", base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ""));
-            } else {
-                    // Se não for imagem ou não houver arquivo, a validação acima já deve ter impedido o envio
-                formData.delete("foto"); // Garante que não envie lixo
-            }
-
-            for (const pair of formData.entries()) {
-                data.append(pair[0].toLowerCase(), pair[1]);
-            }
+            // Conversão da foto para base64
+            const base64 = await toBase64(file);
+            formData.set("foto", base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, ""));
 
             const response = await fetch(scriptURL, {
                 method: 'POST',
-                body: data
+                body: formData
             });
 
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
@@ -582,47 +641,18 @@
         }
     });
 
-    // Função auxiliar para converter arquivo em base64
-    function toBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
+    // --- Lógica para máscaras e eventos do dropdown "Outro" ---
 
-    // Função para exibir popup com mensagem e foco para acessibilidade
-    function showPopup(id, titleText, messageText) {
-        const popup = document.getElementById(id);
-        const titleElement = popup.querySelector('h2');
-        const messageElement = popup.querySelector('p');
-        
-        if (!popup || !titleElement || !messageElement) return;
-
-        titleElement.textContent = titleText;
-        messageElement.textContent = messageText;
-
-        modalOverlay.classList.add('show'); 
-        popup.classList.add('show'); 
-        popup.focus(); 
-    }
-
-    function closePopup(id) {
-        const popup = document.getElementById(id);
-        if (popup) {
-            popup.classList.remove('show'); 
-            modalOverlay.classList.remove('show'); 
-        }
-    }
-
-    // Máscaras e maiúsculas para alguns campos
     const cpfInput = document.getElementById('cpf');
     const telInput = document.getElementById('telefone');
-    const outroSelect = document.getElementById('outro'); 
-    const cargoSelect = document.getElementById('cargo'); // Referência ao select de Cargo/Ministério
-    const funcaoSelect = document.getElementById('funcao'); // Novo: Referência ao select de Função na Igreja
+    const estadoCivilSelect = document.getElementById('estadoCivil');
+    const dataCasamentoGroup = document.querySelector('input[name="datacasamento"]').parentElement;
+    const dataCasamentoInput = document.getElementById('dataCasamento');
+    const cargoSelect = document.getElementById('cargo');
+    const outroCargoGroup = document.getElementById('outroCargoGroup');
+    const outroCargoInput = document.getElementById('outroCargo');
 
+    // Event Listeners para máscaras e conversão para maiúsculas
     cpfInput.addEventListener('input', () => {
         cpfInput.value = formatarCPF(cpfInput.value);
     });
@@ -631,8 +661,7 @@
         telInput.value = formatarTelefone(telInput.value);
     });
 
-    // Remove 'funcao' from the toUpperCase list as it's now a select
-    ['nome', 'endereco', 'historico'].forEach(fieldName => { 
+    ['nome', 'endereco', 'historico'].forEach(fieldName => {
         const el = document.querySelector(`[name="${fieldName}"]`);
         if(el) {
             el.addEventListener('input', () => {
@@ -641,37 +670,35 @@
         }
     });
 
-    // You can add an event listener for the new 'funcao' select if needed
-    funcaoSelect.addEventListener('change', () => {
-        console.log('Função na Igreja selecionada:', funcaoSelect.value);
-        // Add any specific logic for when the 'funcao' dropdown changes
-    });
-
-
-    // --- SCRIPT PARA MOSTRAR/OCULTAR A DATA DE CASAMENTO ---
-    document.addEventListener('DOMContentLoaded', () => {
-        const estadoCivilSelect = document.getElementById('estadoCivil');
-        const dataCasamentoGroup = document.querySelector('.form-group .col-50:nth-child(2)'); 
-        const dataCasamentoInput = document.getElementById('dataCasamento');
-
-        function toggleDataCasamento() {
-            const selectedValue = estadoCivilSelect.value;
-            // Se o estado civil for "Casado" ou "União Estável", mostra o campo
-            if (selectedValue === 'Casado' || selectedValue === 'Uniao Estavel') {
-                dataCasamentoGroup.style.display = 'block'; 
-            } else {
-                dataCasamentoGroup.style.display = 'none'; 
-                dataCasamentoInput.value = ''; // Limpa o valor quando escondido
-            }
+    // Lógica para mostrar/esconder Data de Casamento
+    function toggleDataCasamento() {
+        const selectedValue = estadoCivilSelect.value;
+        if (selectedValue === 'Casado(a)' || selectedValue === 'Uniao Estavel') {
+            dataCasamentoGroup.style.display = 'block';
+        } else {
+            dataCasamentoGroup.style.display = 'none';
+            dataCasamentoInput.value = '';
         }
+    }
+    estadoCivilSelect.addEventListener('change', toggleDataCasamento);
+    // Garante o estado inicial ao carregar a página
+    toggleDataCasamento();
 
-        estadoCivilSelect.addEventListener('change', toggleDataCasamento);
-        // Garante que o estado correto seja aplicado ao carregar a página
-        toggleDataCasamento(); 
-    });
+    // Lógica para mostrar/esconder o campo de "Outro" cargo (código unificado)
+    function toggleOutroCargoInput() {
+        if (cargoSelect.value === 'Outro') {
+            outroCargoGroup.style.display = 'block';
+            outroCargoInput.setAttribute('required', 'required');
+            outroCargoInput.focus();
+        } else {
+            outroCargoGroup.style.display = 'none';
+            outroCargoInput.removeAttribute('required');
+            outroCargoInput.value = '';
+        }
+    }
+    cargoSelect.addEventListener('change', toggleOutroCargoInput);
+    // Garante o estado inicial ao carregar a página
+    toggleOutroCargoInput();
 </script>
-
 </body>
 </html>
-
-
